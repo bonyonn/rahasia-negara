@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pertanyaan Buat Dede Akis</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: pink;
+            overflow: hidden;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        .btn {
+            font-size: 20px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        #noBtn {
+            position: absolute;
+        }
+        .firework {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: yellow;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: explode 1s linear infinite;
+        }
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(5); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dede Akis, kamu sayang aku ga?</h1>
+        <button class="btn" onclick="jawabYes()">Iyaaaa!</button>
+        <button class="btn" id="noBtn" onmouseover="kabur()">Tidak :(</button>
+    </div>
+
+    <audio id="backsound" loop>
+        <source src="backsound.mp3" type="audio/mp3">
+    </audio>
+    <audio id="sfxYes">
+        <source src="sfx-yes.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        function jawabYes() {
+            document.body.innerHTML = "<h1>Yayyy! Dede Akis sayang aku!</h1>";
+            let sfx = document.getElementById("sfxYes");
+            sfx.play();
+            document.body.style.backgroundColor = "red";
+
+            for (let i = 0; i < 20; i++) {
+                let firework = document.createElement("div");
+                firework.classList.add("firework");
+                document.body.appendChild(firework);
+                firework.style.left = Math.random() * window.innerWidth + "px";
+                firework.style.top = Math.random() * window.innerHeight + "px";
+                setTimeout(() => firework.remove(), 1000);
+            }
+        }
+
+        function kabur() {
+            let btn = document.getElementById("noBtn");
+            let x = Math.random() * (window.innerWidth - btn.offsetWidth);
+            let y = Math.random() * (window.innerHeight - btn.offsetHeight);
+            btn.style.left = x + "px";
+            btn.style.top = y + "px";
+        }
+
+        window.onload = function() {
+            document.getElementById("backsound").play();
+        };
+    </script>
+</body>
+</html>
